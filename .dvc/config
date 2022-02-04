@@ -1,0 +1,6 @@
+[core]
+    remote = projet--cmd--prediction--prix--logement--g2
+['remote "gdriveremote"']
+    url = gdrive://1vRpbuXGmLaM1IsqtEW9U8W5xXbUFgv43
+['remote "projet--cmd--prediction--prix--logement--g2"']
+    url = gdrive://1IOAscWcrN2PO_XwKU4Oy10EnVnc_PFsT

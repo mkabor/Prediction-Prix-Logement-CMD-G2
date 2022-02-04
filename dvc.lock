@@ -1,0 +1,61 @@
+schema: '2.0'
+stages:
+  create-dataset:
+    cmd: python scripts/create_dataset.py
+    deps:
+    - path: scripts/create_dataset.py
+      md5: 6438775cab98a03a9d1e5295da76d5d2
+      size: 4606
+    outs:
+    - path: assets/data
+      md5: d7f3f4715d36e6bda0dfcf6507779082.dir
+      size: 2854388
+      nfiles: 4
+  extract-feature:
+    cmd: python scripts/extract_features.py
+    deps:
+    - path: assets/data
+      md5: d7f3f4715d36e6bda0dfcf6507779082.dir
+      size: 2854388
+      nfiles: 4
+    - path: scripts/extract_features.py
+      md5: 4a0c9df4f4034e38ea18727d2f7706a7
+      size: 1219
+    outs:
+    - path: assets/features
+      md5: c7dcbe67690df5c05d15ed1d50183ee0.dir
+      size: 954041
+      nfiles: 4
+  train-model:
+    cmd: python scripts/train_model.py
+    deps:
+    - path: assets/features/train_features.csv
+      md5: fd6ba3c3e9bd4f093ed70519da6cdc21
+      size: 655969
+    - path: assets/features/train_labels.csv
+      md5: 68805c32a2b941568370af812f250e57
+      size: 10154
+    outs:
+    - path: assets/models
+      md5: e8b3c91ee19ffdbe8d89794246b8efb0.dir
+      size: 11815
+      nfiles: 1
+  eval-model:
+    cmd: python scripts/eval_model.py
+    deps:
+    - path: assets/features/test_features.csv
+      md5: bfb92051984fb684b1c5642f0628d1d9
+      size: 283564
+    - path: assets/features/test_labels.csv
+      md5: 6d6746725e18344c472391f7a8354f15
+      size: 4354
+    - path: assets/models/model.pikle
+      md5: d8c1d7a0fa12898f822a45c762bbce9c
+      size: 11815
+    - path: scripts/eval_model.py
+      md5: 51dea8121c9d5c0404f0d5cf8a3199e2
+      size: 954
+    outs:
+    - path: assets/metrics.json
+      md5: 31af2ce4f566235f16c103074acf097f
+      size: 61
