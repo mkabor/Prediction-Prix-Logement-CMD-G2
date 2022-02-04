@@ -3,7 +3,7 @@
 import pickle # Serialiser des objets (y comporis des modeles)
 
 import pandas as pd
-from sklearn import linear_model
+from sklearn.ensemble import RandomForestRegressor
 
 from config import Config
 
@@ -17,9 +17,9 @@ X_train = pd.read_csv(str(Config.FEATURES_PATH / "train_features.csv"))
 y_train = pd.read_csv(str(Config.FEATURES_PATH / "train_labels.csv"))
 
 # IV.Entrainement du model
-model = linear_model.LinearRegression()
-model.fit(X_train, y_train.to_numpy().ravel())
+rf_model = RandomForestRegressor(n_estimators=150, max_depth=6, random_state=Config.RANDON_SEED)
+rf_model.fit(X_train, y_train)
 
 
 # V. Enregisrement du model
-pickle.dump(model, open(str(Config.MODELS_PATH / "model.pikle"), mode='wb'))
+pickle.dump(rf_model, open(str(Config.MODELS_PATH / "model.pikle"), mode='wb'))
